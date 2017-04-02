@@ -1,0 +1,14 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage<ContentModels.HomePage>
+@using ContentModels = Umbraco.Web.PublishedContentModels;
+@{
+	Layout = "Master.cshtml";
+}
+
+<div class="jumbotron">
+  <h1>Welcome!</h1>
+  <p>We are a group of professionals and want to help you with your online business. We specialize in the latest and most advanced web technologies and follow only the proven practices.<br><br> Contact us to setup a meeting and discuss opportunities.</p>
+  <p><a class="btn btn-primary btn-lg" href="/contact-us" role="button">Contact Us</a></p>
+</div>
+  
+	@Umbraco.RenderMacro("completedProjectsList")
+	@Umbraco.RenderMacro("articlesOverviewGrid")

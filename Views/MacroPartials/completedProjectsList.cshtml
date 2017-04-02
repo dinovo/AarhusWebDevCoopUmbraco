@@ -1,0 +1,27 @@
+﻿@inherits Umbraco.Web.Macros.PartialViewMacroPage
+
+
+@{ var selection = CurrentPage.Site().FirstChild("projectsOverview").Children("projectItem").Where("Visible").OrderBy("CreateDate"); }
+@* OrderBy() takes the property to sort by and optionally order desc/asc *@
+
+<div class="container">
+    <div class="row Heading">
+        <div class="col-xs-12"><h3>Latest Projects<hr/></div>
+    </div>
+    <div class="row Projects List">
+       @foreach (var item in selection)
+    {
+		if(@Umbraco.GetPreValueAsString(item.projectStatus) == "Completed") {
+			<div class="col-xs-4">
+				<div class="panel panel-default">
+					<div class="panel-heading"><h6><a href="@item.Url">@item.Name</a><span class="text-success pull-right"> Completed</span></h6></div>
+					<div class="panel-body">
+						
+						@item.ProjectDescription
+					</div>
+				</div>
+			</div>
+		}
+    }
+    </div>
+</div>

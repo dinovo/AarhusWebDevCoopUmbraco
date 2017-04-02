@@ -1,0 +1,59 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage<ContentModels.Master>
+@using ContentModels = Umbraco.Web.PublishedContentModels;
+@{
+	Layout = null;
+}
+
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>@Umbraco.Field("siteTitle", recursive: true)</title>
+		<meta name="description" content=@Umbraco.Field("metaDescription", recursive: true)>
+		<meta name="keywords" content=@Umbraco.Field("metaKeywords", recursive: true)>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="@Url.Content("~/css/style.css")">
+	</head>
+	<body>
+		<header>
+			
+			<nav class="navbar navbar-default">
+			  <div class="container-fluid">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header">
+				  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				  </button>
+				  <a class="navbar-brand" href="#">Aarhus Web Developers</a>
+				</div>
+
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				  @Umbraco.RenderMacro("mainMenu")
+				</div><!-- /.navbar-collapse -->
+			  </div><!-- /.container-fluid -->
+			</nav>
+		</header>
+
+		<section class="main">
+			<div class="container">
+				@RenderBody()
+			</div>
+		</section>					
+
+		<div id="footer-container">
+			<footer class="container">
+				<hr/>
+				@Umbraco.Field("footer", recursive: true)
+			</footer>
+		</div>
+
+		<script src="~/Scripts/jquery-3.1.1.min.js"></script>
+		<script src="~/bower_components/bootstrap-sass/assets/javascripts/bootstrap.min.js"></script>
+		<script src="~/Scripts/jquery.validate.min.js"></script>
+		<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>					
+	</body>
+</html>

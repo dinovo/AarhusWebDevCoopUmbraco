@@ -1,0 +1,28 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage<ContentModels.Members>
+@using ContentModels = Umbraco.Web.PublishedContentModels;
+@using Newtonsoft.Json;
+@{
+	Layout = "Master.cshtml";
+	var memberService = ApplicationContext.Current.Services.MemberService;
+	var members = memberService.GetMembersByGroup("Active");
+}
+
+<h2>@CurrentPage.Name</h2>
+<hr/>
+
+@foreach (var member in members)
+{
+	<p>
+		<h4>@member.Name </h4>
+		@member.GetValue("address") <br>
+		@member.GetValue("city"), @member.GetValue("city") <br>
+		Email: @member.Email
+	</p>
+			
+	<h6>Skills: </h6>
+	
+	String[] skills = member.GetValue("skills").ToString().Split(',');
+	string skillString = string.Join(", ", from skill in skills select umbraco.library.GetPreValueAsString(Convert.ToInt32(skill)));
+		
+	<span>@skillString</span><br><br>
+}

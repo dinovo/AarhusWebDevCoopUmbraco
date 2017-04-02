@@ -1,0 +1,8 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage<ContentModels.Sitemap>
+@using ContentModels = Umbraco.Web.PublishedContentModels;
+@{
+	Layout = "Master.cshtml";
+}
+<h2>@CurrentPage.Name</h2>
+<hr/>
+@Umbraco.RenderMacro("sitemapMacro")

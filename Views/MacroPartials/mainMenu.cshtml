@@ -1,0 +1,45 @@
+﻿@inherits Umbraco.Web.Macros.PartialViewMacroPage
+
+
+@*
+    This snippet displays a list of links of the pages immediately under the top-most page in the content tree.
+    This is the home page for a standard website.
+    It also highlights the current active page/section in the navigation with the css class "current".
+*@
+
+@{ 
+	var root = CurrentPage.AncestorOrSelf(1);
+	var projectDropdown = CurrentPage.Site().FirstChild("projectsOverview").Children("projectItem").Where("Visible").OrderBy("Name");
+}
+
+<ul class="nav navbar-nav">
+	<li class="@(CurrentPage.Name == root.Name ? " active" : null)">
+		<a href="/">@root.Name</a>
+	</li>
+
+	@foreach (var item in root.Children.Where("Visible"))
+	{
+		if(item.Name != "Projects" && item.Name != "Sitemap")
+		{
+		<li class="@(item.IsAncestorOrSelf(CurrentPage) ? " active" : null)">
+			<a href="@item.Url">@item.Name</a>
+		</li>
+		}
+
+		if(item.Name == "Projects")
+		{
+		<li class="dropdown (item.IsAncestorOrSelf(CurrentPage) ? " active" : null)">
+			<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@item.Name<span class="caret"></span></a>
+			<ul class="dropdown-menu">
+				@foreach (var project in projectDropdown)
+				{
+					if(@Umbraco.GetPreValueAsString(project.projectStatus) == "Completed" && project.umbracoNaviHide != true )
+				{
+				<li><a href="@project.Url">@project.Name</a></li>
+				}
+				}
+			</ul>
+		</li>
+		}
+	}
+</ul>	
